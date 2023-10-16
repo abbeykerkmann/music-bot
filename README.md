@@ -9,7 +9,7 @@ Audio from youtube videos can be played using this bot by providing the URL of t
 First, the bot must join the user's voice channel using the `/join` command, and then using the `/play <url>` command, you can play any youtube video you want! There are a variety of other commands that cover different functions as well.
 
 ### Currently Supported Commands
-```bash
+```
 /join - Connects the bot to your voice channel.
 /play <url> - Plays the video from the provided YouTube URL.
 /add <url> - Adds the video from the provided YouTube URL to the queue.

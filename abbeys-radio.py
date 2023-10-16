@@ -96,13 +96,15 @@ async def disconnect(ctx):
 
 @bot.command()
 async def skip(ctx):
+    global isPlaying
     voiceClient = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     if voiceClient:
-        await ctx.send("Skipping the current video.")
-        voiceClient.stop()
-        playNext(ctx)
-    else:
-        await ctx.send("Not currently playing anything!")
+        if isPlaying:
+            await ctx.send("Skipping the current video.")
+            voiceClient.stop()
+            playNext(ctx)
+        else:
+            await ctx.send("Not currently playing anything!")
 
 @bot.command()
 async def pause(ctx):
@@ -143,19 +145,21 @@ def search(url):
     info = ydl.extract_info(url, download=False)
     for index in range(len(info['formats'])):
         if 'format_note' in info['formats'][index] and info['formats'][index].get('format_note') == 'Default':
-            return {'audio': info['formats'][index], 'title': info['title']}
+            return {'audio': info['formats'][index]['url'], 'title': info['title']}
 
 def playNext(ctx):
     global isPlaying, currentVideo
     voiceClient = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    print(videoQueue)
     if len(videoQueue) > 0:
         isPlaying = True
         songInfo = videoQueue.pop(0)
-        source = songInfo['audio']['url']
+        source = songInfo['audio']
         currentVideo = songInfo['title']
+        print(currentVideo)
         voiceClient.play(discord.FFmpegPCMAudio(source=source, executable='C:\\FFmpeg\\bin\\ffmpeg.exe', options=FFMPEG_OPTIONS), after=lambda e: playNext(ctx))
     else:
         currentVideo = ""
         isPlaying = False
 
-bot.run('TOKEN')
+bot.run('MTE2MjA0MDM4MTQyNTMyODIyMA.GLWO3f.0PYGhPC7VnNSnK25HDa2hMvbHhm8VfygcOuMmY')
