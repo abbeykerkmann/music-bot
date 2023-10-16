@@ -162,4 +162,4 @@ def playNext(ctx):
         currentVideo = ""
         isPlaying = False
 
-bot.run('MTE2MjA0MDM4MTQyNTMyODIyMA.GLWO3f.0PYGhPC7VnNSnK25HDa2hMvbHhm8VfygcOuMmY')
+bot.run('TOKEN')
